@@ -28,20 +28,31 @@ describe('Calculator', () => {
 		cy.get('.display').should('contain', '16');
 	});
 
-	it('should handle positive, negative, decimals, and very large numbers', () => {
+	it('should handle positive numbers', () => {
+		cy.get('#number5').click();
+		cy.get('#operator-add').click();
+		cy.get('#number1').click();
+		cy.get('#operator-equals').click();
+		cy.get('.display').should('contain', '6');
+	});
+	it('should handle negative numbers', () => {
 		cy.get('#number5').click();
 		cy.get('#operator-subtract').click();
 		cy.get('#number7').click();
 		cy.get('#operator-equals').click();
-		cy.get('#operator-add').click();
-		cy.get('#number1').click();
+		cy.get('.display').should('contain', '-2');
+	});
+	it('should handle decimal numbers', () => {
 		cy.get('#number0').click();
-		cy.get('#operator-equals').click();
-		cy.get('#operator-multiply').click();
-		cy.get('#number1').click();
 		cy.get('#decimal').click();
 		cy.get('#number5').click();
+		cy.get('#operator-multiply').click();
+		cy.get('#number5').click();
 		cy.get('#operator-equals').click();
+		cy.get('.display').should('contain', '2.5');
+	});
+	it('should handle very large numbers', () => {
+		cy.get('#number5').click();
 		cy.get('#operator-multiply').click();
 		cy.get('#number1').click();
 		cy.get('#number0').click();
@@ -52,9 +63,8 @@ describe('Calculator', () => {
 		cy.get('#number0').click();
 		cy.get('#number0').click();
 		cy.get('#operator-equals').click();
-		cy.get('.display').should('contain', '120000000');
+		cy.get('.display').should('contain', '50000000');
 	});
-
 	it('should handle division by zero', () => {
 		cy.get('#number9').click();
 		cy.get('#operator-divide').click();
